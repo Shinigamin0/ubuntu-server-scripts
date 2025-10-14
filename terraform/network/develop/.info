@@ -1,0 +1,16 @@
+Outputs:
+
+nat_gateway_ids = [
+  "nat-0964e93db337bd68b",
+]
+private_route_table_ids = [
+  "rtb-081d9832bbf9f5e09",
+]
+private_subnet_ids = [
+  "subnet-023ed28d14f3c31e3",
+]
+public_route_table_id = "rtb-03caf71558388a036"
+public_subnet_ids = [
+  "subnet-08a4b3182062c8ffe",
+]
+vpc_id = "vpc-02b73a56bb1b1799f"

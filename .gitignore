@@ -2,3 +2,34 @@
 *.terraform.*
 *terraform.tfstate*
 *.info*
+
+# Terraform state
+*.tfstate
+*.tfstate.backup
+*.tfstate.*
+
+# Crash logs
+crash.log
+
+# Terraform plan files
+*.tfplan
+
+# Terraform provider lock file directory
+.terraform/
+.terraform.lock.hcl
+
+# SSH keys or TLS keys
+*.pem
+*.key
+*.crt
+
+# Sensitive vars files (if any)
+*.auto.tfvars.json
+*.tfvars.json
+
+# Output exports
+outputs-network.json
+
+# Misc
+*.log
+

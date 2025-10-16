@@ -12,7 +12,6 @@ provider "aws" {
   region = var.region
 }
 
-# Bucket para estado remoto (sin DynamoDB)
 resource "aws_s3_bucket" "tf_state" {
   bucket        = var.state_bucket_name
   force_destroy = false
@@ -20,11 +19,10 @@ resource "aws_s3_bucket" "tf_state" {
   tags = {
     Name    = var.state_bucket_name
     Purpose = "terraform-state"
-    Owner   = "infra"
+    Owner   = "Shinigamin"
   }
 }
 
-# Bloqueo de acceso público
 resource "aws_s3_bucket_public_access_block" "tf_state_pab" {
   bucket                  = aws_s3_bucket.tf_state.id
   block_public_acls       = true
@@ -33,7 +31,6 @@ resource "aws_s3_bucket_public_access_block" "tf_state_pab" {
   restrict_public_buckets = true
 }
 
-# Versioning
 resource "aws_s3_bucket_versioning" "tf_state_versioning" {
   bucket = aws_s3_bucket.tf_state.id
   versioning_configuration {
@@ -41,7 +38,6 @@ resource "aws_s3_bucket_versioning" "tf_state_versioning" {
   }
 }
 
-# Encripción por defecto (SSE-S3)
 resource "aws_s3_bucket_server_side_encryption_configuration" "tf_state_sse" {
   bucket = aws_s3_bucket.tf_state.id
   rule {
@@ -51,7 +47,6 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "tf_state_sse" {
   }
 }
 
-# Política para exigir TLS
 data "aws_iam_policy_document" "tf_state_policy_doc" {
   statement {
     sid    = "DenyInsecureTransport"
@@ -82,13 +77,21 @@ resource "aws_s3_bucket_policy" "tf_state_policy" {
   policy = data.aws_iam_policy_document.tf_state_policy_doc.json
 }
 
-# Crear los "directorios" usados en el backend
-resource "aws_s3_object" "state_prefix" {
+resource "aws_s3_object" "state_prefix_production" {
   bucket = aws_s3_bucket.tf_state.bucket
-  key    = "terraform/state/" # S3 trata esto como un "folder"
+  key    = "states/production/"
   acl    = "private"
 }
 
-output "state_bucket_name" {
-  value = aws_s3_bucket.tf_state.bucket
+resource "aws_s3_object" "state_prefix_develop" {
+  bucket = aws_s3_bucket.tf_state.bucket
+  key    = "states/develop/"
+  acl    = "private"
 }
+
+resource "aws_s3_object" "state_prefix_quality" {
+  bucket = aws_s3_bucket.tf_state.bucket
+  key    = "states/quality/"
+  acl    = "private"
+}
+

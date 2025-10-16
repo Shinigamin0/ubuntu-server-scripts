@@ -18,7 +18,7 @@ resource "aws_vpc" "this" {
   cidr_block           = var.vpc_cidr
   enable_dns_support   = true
   enable_dns_hostnames = true
-  tags = merge(var.tags, { Name = "${var.name}-vpc" })
+  tags                 = merge(var.tags, { Name = "${var.name}-vpc" })
 }
 
 # IGW
@@ -33,14 +33,14 @@ locals {
   idx_map = { for idx, az in var.azs : tostring(idx) => az }
 
   # Validaciones ligeras
-  ok_public  = length(var.public_cidrs)  == length(var.azs)
+  ok_public  = length(var.public_cidrs) == length(var.azs)
   ok_private = length(var.private_cidrs) == length(var.azs)
 }
 
-# (Opcional) Validaciones “hard” que abortan si no coinciden
-# Puedes mover estas a variables.tf si prefieres
+# Validaciones “hard” que abortan si no coinciden
+
 locals {
-  _check_public  = local.ok_public  ? 1 : tonumber("public_cidrs y azs deben tener la misma longitud")
+  _check_public  = local.ok_public ? 1 : tonumber("public_cidrs y azs deben tener la misma longitud")
   _check_private = local.ok_private ? 1 : tonumber("private_cidrs y azs deben tener la misma longitud")
 }
 
@@ -51,7 +51,7 @@ resource "aws_subnet" "public" {
   cidr_block              = var.public_cidrs[tonumber(each.key)]
   availability_zone       = each.value
   map_public_ip_on_launch = true
-  tags = merge(var.tags, { Name = "${var.name}-public-${each.value}" })
+  tags                    = merge(var.tags, { Name = "${var.name}-public-${each.value}" })
 }
 
 # Subnets privadas (una por AZ)
@@ -61,7 +61,7 @@ resource "aws_subnet" "private" {
   cidr_block              = var.private_cidrs[tonumber(each.key)]
   availability_zone       = each.value
   map_public_ip_on_launch = false
-  tags = merge(var.tags, { Name = "${var.name}-private-${each.value}" })
+  tags                    = merge(var.tags, { Name = "${var.name}-private-${each.value}" })
 }
 
 # ---------- RUTAS PÚBLICAS (compartida) ----------

@@ -1,0 +1,60 @@
+{
+  "nat_gateway_ids": {
+    "sensitive": false,
+    "type": [
+      "tuple",
+      [
+        "string"
+      ]
+    ],
+    "value": [
+      "nat-010a3ee2ddf5f0394"
+    ]
+  },
+  "private_route_table_ids": {
+    "sensitive": false,
+    "type": [
+      "tuple",
+      [
+        "string"
+      ]
+    ],
+    "value": [
+      "rtb-0ccd2dd21db40a135"
+    ]
+  },
+  "private_subnet_ids": {
+    "sensitive": false,
+    "type": [
+      "tuple",
+      [
+        "string"
+      ]
+    ],
+    "value": [
+      "subnet-0378b5d4911b0fe90"
+    ]
+  },
+  "public_route_table_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "rtb-0d838497228ea82ba"
+  },
+  "public_subnet_ids": {
+    "sensitive": false,
+    "type": [
+      "tuple",
+      [
+        "string"
+      ]
+    ],
+    "value": [
+      "subnet-01984aae92e772d39"
+    ]
+  },
+  "vpc_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "vpc-088649dd2801e21ed"
+  }
+}

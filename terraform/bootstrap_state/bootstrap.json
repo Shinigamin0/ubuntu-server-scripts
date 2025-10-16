@@ -1,0 +1,22 @@
+{
+  "develop_state_path": {
+    "sensitive": false,
+    "type": "string",
+    "value": "states/develop"
+  },
+  "production_state_path": {
+    "sensitive": false,
+    "type": "string",
+    "value": "states/production"
+  },
+  "quality_state_path": {
+    "sensitive": false,
+    "type": "string",
+    "value": "states/quality"
+  },
+  "state_bucket_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "shinigamin-terraform-states-us-east-1"
+  }
+}
